@@ -10,4 +10,13 @@ public class ListNode {
         this.val = val;
         next = null;
     }
+
+    public void display(){
+        ListNode head = this;
+        while(head != null){
+            System.out.print(head.val + " ");
+            head = head.next;
+        }
+        System.out.println();
+    }
 }
