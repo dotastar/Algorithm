@@ -7,7 +7,7 @@ package com.leetcode.dfs;
  *
  * You may assume that there will be only one unique solution.
  *
- * Created by Xiaomeng on 5/18/2014.
+ * Created by Xiaomeng on 8/25/2014.
  */
 public class SudokuSolver {
     public void solveSudoku(char[][] board) {
@@ -31,41 +31,22 @@ public class SudokuSolver {
     }
 
     public boolean isValid(char[][] board, int x, int y){
-        //Check the same row
-        for(int i = 0; i < 9; i++)
-            if(i != y && board[x][i] == board[x][y]) return false;
-
-        //Check the same column
-        for(int i = 0; i < 9; i++)
-            if(i != x && board[i][y] == board[x][y]) return false;
-
-        //Check the square
-        for(int i = 3 * (x / 3); i < 3 * (x / 3) + 3; i++)
-            for(int j = 3 * (y / 3); j < 3 * (y / 3) + 3; j++)
-                if(x != i && y != j && board[i][j] == board[x][y]) return false;
-
-        return true;
-    }
-
-    public static void main(String[] args){
-        SudokuSolver solver = new SudokuSolver();
-        char[][] board = {
-                { '.', '.', '9', '7', '4', '8', '.', '.', '.' },
-                { '7', '.', '.', '.', '.', '.', '.', '.', '.' },
-                { '.', '2', '.', '1', '.', '9', '.', '.', '.' },
-                { '.', '.', '7', '.', '.', '.', '2', '4', '.' },
-                { '.', '6', '4', '.', '1', '.', '5', '9', '.' },
-                { '.', '9', '8', '.', '.', '.', '3', '.', '.' },
-                { '.', '.', '.', '8', '.', '3', '.', '2', '.' },
-                { '.', '.', '.', '.', '.', '.', '.', '.', '6' },
-                { '.', '.', '.', '2', '7', '5', '9', '.', '.' }
-        };
-        solver.solveSudoku(board);
+        //Row
         for(int i = 0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
+            if(i != x && board[i][y] == board[x][y]) return false;
         }
+
+        //Col
+        for(int i = 0; i < 9; i++){
+            if(i != y && board[x][i] == board[x][y]) return false;
+        }
+
+        //Square
+        for(int i = 3 * (x/3); i < 3 * (x/3) + 3; i++){
+            for(int j = 3 * (y/3); j < 3 * (y/3) + 3; j++){
+                if(i != x && j != y && board[i][j] == board[x][y]) return false;
+            }
+        }
+        return true;
     }
 }
