@@ -18,30 +18,28 @@ import com.leetcode.core.ListNode;
  */
 public class ReverseLinkedList2 {
     public static ListNode reverseBetween(ListNode head, int m, int n) {
-        if(head == null || head.next == null || m - n == 0) return head;
+        if(head == null || head.next == null || m == n) return head;
 
         ListNode left = new ListNode(-1);
         left.next = head;
         for(int i = 1; i < m; i++) left = left.next;
 
         ListNode rHead = left.next;
-        ListNode prev = rHead;
+        ListNode prev = left.next;
         ListNode curr = prev.next;
-        ListNode next = curr.next;
-        int step = n - m;
 
-        while(next != null && step != 1){
+        int step = n - m;
+        while(curr != null && step != 0){
+            ListNode next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
-            next = curr.next;
             step--;
         }
-        curr.next = prev;
-        left.next = curr;
-        rHead.next = next;
 
-        return m == 1 ? curr : head;
+        left.next = prev;
+        rHead.next = curr;
+        return m == 1 ? prev : head;
     }
 
     public static void main(String[] args){
