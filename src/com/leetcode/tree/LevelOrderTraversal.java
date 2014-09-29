@@ -29,27 +29,24 @@ import java.util.Queue;
  *
  * Created by Xiaomeng on 8/6/2014.
  */
-public class LevelOrderTraversal {
-    List<List<Integer>> result = new ArrayList<List<Integer>>();
+public class LevelOrderTraversal {;
     public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
         if(root == null) return result;
 
-        Queue<TreeNode> queue1 = new LinkedList<TreeNode>();
-        Queue<TreeNode> queue2 = new LinkedList<TreeNode>();
-        queue1.add(root);
-        List<Integer> level = new ArrayList<Integer>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
 
-        while(!queue1.isEmpty()){
-            TreeNode node = queue1.poll();
-            level.add(node.val);
-            if(node.left != null) queue2.add(node.left);
-            if(node.right != null) queue2.add(node.right);
-            if(queue1.isEmpty()){
-                result.add(level);
-                level = new ArrayList<Integer>();
-                queue1.addAll(queue2);
-                queue2.clear();
+        while(!queue.isEmpty()){
+            List<Integer> level = new ArrayList<Integer>();
+            int size = queue.size();
+            for(int i = 0; i < size; i++){
+                TreeNode node = queue.poll();
+                level.add(node.val);
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
             }
+            result.add(level);
         }
         return result;
     }
