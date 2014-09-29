@@ -11,18 +11,16 @@ import com.leetcode.core.TreeNode;
  */
 public class BalancedBinaryTree {
     public boolean isBalanced(TreeNode root) {
-        if(root == null) return true;
-        if(getBalanced(root) == -1) return false;
-        return true;
+        return getBalance(root) != -1;
     }
 
-    public int getBalanced(TreeNode root){
+    public int getBalance(TreeNode root){
         if(root == null) return 0;
 
-        int left = getBalanced(root.left);
+        int left = getBalance(root.left);
         if(left == -1) return -1;
 
-        int right = getBalanced(root.right);
+        int right = getBalance(root.right);
         if(right == -1) return -1;
 
         if(Math.abs(left - right) > 1) return -1;
