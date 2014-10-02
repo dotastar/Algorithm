@@ -32,24 +32,16 @@ import com.leetcode.core.TreeNode;
  */
 public class FlattenBinaryTreeToLinkedList {
     public void flatten(TreeNode root) {
-        flattenTree(root);
-    }
+        if(root == null) return;
+        if(root.left == null && root.right == null) return;
 
-    public TreeNode flattenTree(TreeNode root){
-        if(root == null) return null;
-        if(root.left == null && root.right == null) return root;
-        TreeNode left = flattenTree(root.left);
-        TreeNode right = flattenTree(root.right);
+        flatten(root.left);
+        flatten(root.right);
+        TreeNode right = root.right;
+        root.right = root.left;
         root.left = null;
-        if(left == null){
-            root.right = right;
-        }else{
-            root.right = left;
-            if(right != null){
-                while(left.right != null) left = left.right;
-                left.right = right;
-            }
-        }
-        return root;
+        while(root.right != null)
+            root = root.right;
+        root.right = right;
     }
 }
