@@ -13,19 +13,13 @@ import com.leetcode.core.ListNode;
  */
 public class RemoveDuplicates {
     public static ListNode deleteDuplicates(ListNode head) {
-        if(head == null) return head;
-
-        ListNode first = head;
-        ListNode second = first.next;
-
-        while(second != null){
-            if(first.val == second.val){
-                second = second.next;
-                first.next = second;
-            }else{
-                first = first.next;
-                second = second.next;
-            }
+        if(head == null || head.next == null) return head;
+        ListNode n = head;
+        while(n != null && n.next != null){
+            if(n.val == n.next.val)
+                n.next = n.next.next;
+            else
+                n = n.next;
         }
         return head;
     }
