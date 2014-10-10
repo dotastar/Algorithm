@@ -1,6 +1,8 @@
 package com.misc;
 
 /**
+ * Reference: http://www.javaworld.com/article/2073352/core-java/simply-singleton.html
+ *
  * Created by Xiaomeng on 10/10/2014.
  */
 public class Singleton implements java.io.Serializable{
