@@ -1,0 +1,32 @@
+package com.leetcode.other;
+
+/**
+ *  There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
+ *  You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1).
+ *  You begin the journey with an empty tank at one of the gas stations.
+ *
+ *  Return the starting gas station's index if you can travel around the circuit once, otherwise return -1.
+ *
+ *  Note:
+ *  The solution is guaranteed to be unique.
+ *
+ *  Created by Xiaomeng on 9/1/2014.
+ */
+public class GasStation {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int start = 0, index = 0;
+        int tank = 0, left = 0;
+        while(index < gas.length){
+            left += gas[index] - cost[index];
+            tank += gas[index] - cost[index];
+            if(tank < 0){
+                start = index + 1;
+                index = start;
+                tank = 0;
+            }else{
+                index++;
+            }
+        }
+        return left < 0 ? -1 : start;
+    }
+}
