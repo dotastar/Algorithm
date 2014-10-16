@@ -75,7 +75,7 @@ public class WordLadder {
     }
 
     /*
-    * BFS
+    * BFS: TLE
     * Better solution: http://shanjiaxin.blogspot.com/2014/04/word-ladder-leetcode.html
     * */
     public int ladderLength2(String start, String end, Set<String> dict) {
