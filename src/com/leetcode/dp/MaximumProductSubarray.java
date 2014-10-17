@@ -12,6 +12,8 @@ public class MaximumProductSubarray {
 
     /**
      * Clearer solution: http://www.cnblogs.com/dengeven/p/3992459.html
+     * Sample: {2, -5, -2, -4, 3}
+     * Return: 24
      *
      */
     public int maxProduct1(int[] A) {
