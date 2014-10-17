@@ -55,4 +55,50 @@ public class InsertInterval {
         }
         return result;
     }
+
+    /**
+     * Better solution: Since the given intervals are already sorted, we don't need to sort again. Instead, just add the newInterval to the right position.
+     *
+     */
+    public List<Interval> insert1(List<Interval> intervals, Interval newInterval) {
+        if(intervals.size() == 0){
+            intervals.add(newInterval);
+            return intervals;
+        }
+        if(newInterval.start <= intervals.get(0).start)
+            intervals.add(0, newInterval);
+        else if(newInterval.start >= intervals.get(intervals.size() -1).start)
+            intervals.add(newInterval);
+        else{
+            int index = 0;
+            while(index < intervals.size() - 1){
+                if(intervals.get(index).start <= newInterval.start && intervals.get(index + 1).start >= newInterval.start){
+                    break;
+                }
+                index++;
+            }
+            intervals.add(index + 1, newInterval);
+        }
+        return mergeIntervals1(intervals);
+    }
+
+    public List<Interval> mergeIntervals1(List<Interval> intervals){
+        if(intervals.size() == 0 || intervals.size() == 1) return intervals;
+        List<Interval> result = new ArrayList<Interval>();
+        result.add(intervals.get(0));
+        for(int i = 1; i < intervals.size(); i++){
+            Interval curr = result.get(result.size() - 1);
+            Interval next = intervals.get(i);
+            if(curr.end < next.start){
+                result.add(next);
+            }else{
+                Interval interval = new Interval();
+                interval.start = curr.start;
+                interval.end = curr.end <= next.end ? next.end : curr.end;
+                result.remove(result.size() - 1);
+                result.add(interval);
+            }
+        }
+        return result;
+    }
 }
