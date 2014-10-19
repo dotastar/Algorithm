@@ -12,23 +12,21 @@ import java.util.Map;
  */
 public class IntegerToRoman {
     public String intToRoman(int num) {
-        StringBuilder result = new StringBuilder();
         Map<Integer, Character> map = buildMap();
+        StringBuilder result = new StringBuilder();
         String number = String.valueOf(num);
         int exp = number.length() - 1;
         for(int i = 0; i < number.length(); i++){
             int digit = Character.getNumericValue(number.charAt(i));
             int base = (int)Math.pow(10, exp);
-            if(digit <= 3 && digit > 0){
-                for(int j = 0; j < digit; j++) result.append(map.get(base));
+            if(digit >= 1 && digit <= 3){
+                for(int j = 1; j <= digit; j++) result.append(map.get(base));
             }else if(digit == 4){
                 result.append(map.get(base));
                 result.append(map.get(base * 5));
-            }else if(digit == 5){
+            }else if(digit >= 5 && digit < 9){
                 result.append(map.get(base * 5));
-            }else if(digit > 5 && digit <= 8){
-                result.append(map.get(base * 5));
-                for(int j = 0; j < digit - 5; j++) result.append(map.get(base));
+                for(int j = 1; j <= digit - 5; j++) result.append(map.get(base));
             }else if(digit == 9){
                 result.append(map.get(base));
                 result.append(map.get(base * 10));
