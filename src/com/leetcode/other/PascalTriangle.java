@@ -22,28 +22,16 @@ import java.util.List;
 public class PascalTriangle {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
-        if(numRows == 0) return result;
-
-        List<Integer> first = new ArrayList<Integer>();
-        first.add(1);
-        result.add(first);
-        if(numRows == 1) return result;
-
-        List<Integer> second = new ArrayList<Integer>();
-        second.add(1);
-        second.add(1);
-        result.add(second);
-        if(numRows == 2) return result;
-
-        for(int i = 3; i <= numRows; i++){
-            List<Integer> prev = result.get(i - 2);
-            List<Integer> curr = new ArrayList<Integer>();
-            for(int j = 0; j < i; j++){
-                if(j == 0 || j == i - 1) {
+        List<Integer> curr;
+        List<Integer> prev = new ArrayList<Integer>();
+        for(int i = 0; i < numRows; i++){
+            curr = new ArrayList<Integer>();
+            if(i > 0) prev = result.get(i - 1);
+            for(int j = 0; j <= i; j++){
+                if(j == 0 || j == i)
                     curr.add(1);
-                }else{
+                else
                     curr.add(prev.get(j - 1) + prev.get(j));
-                }
             }
             result.add(curr);
         }
