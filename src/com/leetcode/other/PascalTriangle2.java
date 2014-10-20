@@ -17,26 +17,16 @@ import java.util.List;
 public class PascalTriangle2 {
     public List<Integer> getRow(int rowIndex) {
         List<Integer> result = new ArrayList<Integer>();
-        result.add(1);
-        if(rowIndex == 0) return result;
-        result.add(1);
-        if(rowIndex == 1) return result;
-
         List<Integer> tmp = new ArrayList<Integer>();
-        for(int i = 1; i <= rowIndex - 1; i++){
-            for(int j = 0; j < result.size(); j++){
-                if(j == result.size() - 1){
-                    tmp.add(1);
-                    break;
-                }
-                if(j == 0){
-                    tmp.add(1);
-                }
-                tmp.add(result.get(j) + result.get(j + 1));
-            }
-            result.clear();
-            result.addAll(tmp);
+        for(int i = 0; i <= rowIndex; i++){
             tmp.clear();
+            for(int j = 0; j <= i; j++){
+                if(j == 0 || j == i)
+                    tmp.add(1);
+                else
+                    tmp.add(result.get(j - 1) + result.get(j));
+            }
+            result = new ArrayList<Integer>(tmp);
         }
         return result;
     }
