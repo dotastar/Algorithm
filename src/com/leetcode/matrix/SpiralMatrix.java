@@ -30,7 +30,7 @@ public class SpiralMatrix {
     }
 
     public void spiralOrder(int[][] matrix, int row, int col, int rows, int cols){
-        if(row < 0 || col < 0 || row >= rows || col >= cols) return;
+        if(row >= rows || col >= cols) return;
 
         for(int i = col; i < cols; i++){
             result.add(matrix[row][i]);
@@ -56,8 +56,8 @@ public class SpiralMatrix {
 
     public static void main(String[] args){
         int[][] matrix = {
-                {1,2,3},
-                {4,5,6},
+                {1,2,4},
+                {4,5,1},
                 {7,8,9}
         };
         SpiralMatrix test = new SpiralMatrix();
