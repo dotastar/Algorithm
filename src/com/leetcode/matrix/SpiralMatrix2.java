@@ -15,6 +15,10 @@ package com.leetcode.matrix;
  * Created by Xiaomeng on 9/1/2014.
  */
 public class SpiralMatrix2 {
+    /**
+     * Recursive
+     *
+     */
     public int[][] generateMatrix(int n) {
         int[][] result = new int[n][n];
         generateMatrix(0, n, result, 0);
@@ -39,6 +43,33 @@ public class SpiralMatrix2 {
             result[i][start] = ++count;
         }
         generateMatrix(start + 1, n - 1, result, count);
+    }
+
+    /**
+     * Iterative
+     *
+     */
+    public int[][] generateMatrix1(int n) {
+        int[][] result = new int[n][n];
+        int count = 1;
+        for(int layer = 0; layer < n/2; layer++){
+            int first = layer;
+            int last = n - layer - 1;
+            for(int i = first; i < last; i++){
+                result[first][i] = count++;
+            }
+            for(int i = first; i < last; i++){
+                result[i][last] = count++;
+            }
+            for(int i = last; i > first; i--){
+                result[last][i] = count++;
+            }
+            for(int i = last; i > first; i--){
+                result[i][first] = count++;
+            }
+        }
+        if(n % 2 != 0) result[n/2][n/2] = count;
+        return result;
     }
 
     public static void main(String[] args){
