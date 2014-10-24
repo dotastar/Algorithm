@@ -1,9 +1,6 @@
 package com.leetcode.string;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Given a string, find the length of the longest substring without repeating characters.
@@ -13,22 +10,26 @@ import java.util.Set;
  */
 public class LongestSubstringWithoutRepeatingCharacters {
     /*
-    * Check to see if there is a better solution
+    * http://harrifeng.github.io/algo/leetcode/longest-substring-without-repeating-characters.html
+    *
+    * O(n) : worst case 2n, O(2n) = O(n)
     * */
     public int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        int[] table = new int[256];
+        Arrays.fill(table, -1);
+        int len = 0;
         int max = 0;
         for(int i = 0; i < s.length(); i++){
-            if(map.containsKey(s.charAt(i))){
-                max = Math.max(max, map.size());
-                i = map.get(s.charAt(i));
-                map.clear();
-            }else{
-                map.put(s.charAt(i), i);
+            if(table[s.charAt(i)] != -1){
+                max = Math.max(max, len);
+                len = 0;
+                i = table[s.charAt(i)] + 1;
+                Arrays.fill(table, -1);
             }
+            table[s.charAt(i)] = i;
+            len++;
         }
-        max = Math.max(max, map.size());
-        return max;
+        return Math.max(max, len);
     }
 
     public static void main(String[] args){
