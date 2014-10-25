@@ -57,6 +57,44 @@ public class SubstringWithConcatenationAllWords {
         return result;
     }
 
+    /**
+     * Slightly better solution
+     *
+     */
+    public List<Integer> findSubstring2(String S, String[] L) {
+        List<Integer> result = new ArrayList<Integer>();
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        for(int i = 0; i < L.length; i++){
+            if(map.containsKey(L[i])){
+                map.put(L[i], map.get(L[i]) + 1);
+            }else{
+                map.put(L[i], 1);
+            }
+        }
+
+        int wordLen = L[0].length();
+        int totalLen = L.length * wordLen;
+        int i = 0;
+        while(i + totalLen <= S.length()){
+            Map<String, Integer> copy = new HashMap<String, Integer>(map);
+            int j = 0;
+            while(j < L.length){
+                String word = S.substring(i + j * wordLen, i + (j + 1) * wordLen);
+                if(copy.containsKey(word)){
+                    int count = copy.get(word);
+                    if(count == 0) break;
+                    copy.put(word, count - 1);
+                    j++;
+                }else{
+                    break;
+                }
+            }
+            if(j == L.length) result.add(i);
+            i++;
+        }
+        return result;
+    }
+
     public static void main(String[] args){
         SubstringWithConcatenationAllWords test = new SubstringWithConcatenationAllWords();
         String s = "barfoothefoobarman";
