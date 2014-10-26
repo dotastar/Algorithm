@@ -17,6 +17,13 @@ public class LRUCache {
     DoublyLinkedListNode end;
     int capacity;
 
+    /**
+     * Note:
+     * 1. removeNode and setHead are two separate steps
+     * 2. when do set(), what if the key already exists in the cache? Update it!
+     * 3. corner cases when head/end is null; also when do setHead/removeNode, don't forget to reset the backward pointer!
+     *
+     */
     public LRUCache(int capacity) {
         cache = new HashMap<Integer, DoublyLinkedListNode>();
         this.capacity = capacity;
