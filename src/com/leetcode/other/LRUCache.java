@@ -16,12 +16,10 @@ public class LRUCache {
     DoublyLinkedListNode head;
     DoublyLinkedListNode end;
     int capacity;
-    int len;
 
     public LRUCache(int capacity) {
         cache = new HashMap<Integer, DoublyLinkedListNode>();
         this.capacity = capacity;
-        this.len = 0;
     }
 
     public int get(int key) {
@@ -43,15 +41,14 @@ public class LRUCache {
             setHead(node);
         }else{
             DoublyLinkedListNode node = new DoublyLinkedListNode(key, value);
-            if(len == capacity){
-                cache.remove(end.key);
+            if(cache.size() == capacity){
+                cache.remove(end.key); // This is why we need to put the key in the node!
                 removeNode(end);
                 cache.put(key, node);
                 setHead(node);
             }else{
                 cache.put(key, node);
                 setHead(node);
-                len++;
             }
         }
     }
