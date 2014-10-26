@@ -44,12 +44,10 @@ public class LRUCache {
             if(cache.size() == capacity){
                 cache.remove(end.key); // This is why we need to put the key in the node!
                 removeNode(end);
-                cache.put(key, node);
-                setHead(node);
-            }else{
-                cache.put(key, node);
-                setHead(node);
+
             }
+            cache.put(key, node);
+            setHead(node);
         }
     }
 
