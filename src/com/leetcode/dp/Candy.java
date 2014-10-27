@@ -1,4 +1,4 @@
-package com.leetcode.other;
+package com.leetcode.dp;
 
 /**
  *  There are N children standing in a line. Each child is assigned a rating value.
@@ -13,6 +13,10 @@ package com.leetcode.other;
  *  Created by Xiaomeng on 9/22/2014.
  */
 public class Candy {
+    /**
+     * Greedy
+     *
+     */
     public int candy(int[] ratings) {
         int[] left = new int[ratings.length];
         int[] right = new int[ratings.length];
