@@ -16,8 +16,8 @@ public class MaxPointsOnALine {
         if(points.length <= 2) return points.length;
 
         Map<Double, Integer> map = new HashMap<Double, Integer>();
-        int vertical = 0;
-        int horizonal = 0;
+        int vertical = 1;
+        int horizontal = 1;
         int dup = 0;
 
         for(int i = 0; i < points.length; i++){
@@ -28,15 +28,9 @@ public class MaxPointsOnALine {
                 if(base.x == point.x && base.y == point.y){
                     dup++;
                 }else if(base.x == point.x){
-                    if(vertical == 0)
-                        vertical += 2;
-                    else
-                        vertical += 1;
+                    vertical++;
                 }else if(base.y == point.y){
-                    if(horizonal == 0)
-                        horizonal += 2;
-                    else
-                        horizonal += 1;
+                    horizontal++;
                 }else{
                     double slope = 10000 * (base.y - point.y)/(base.x - point.x);
                     if(!map.containsKey(slope)){
@@ -45,9 +39,9 @@ public class MaxPointsOnALine {
                     map.put(slope, map.get(slope) + 1);
                 }
             }
-            max = findMax(map, vertical, horizonal, dup);
-            vertical = 0;
-            horizonal = 0;
+            max = findMax(map, vertical, horizontal, dup);
+            vertical = 1;
+            horizontal = 1;
             dup = 0;
             map.clear();
         }
