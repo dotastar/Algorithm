@@ -49,7 +49,6 @@ public class LowestCommonAncestor3 {
         return count;
     }
 
-
     public static class TreeNodeWithParent{
         TreeNodeWithParent left;
         TreeNodeWithParent right;
