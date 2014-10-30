@@ -28,17 +28,17 @@ public class WildcardMatching {
     * */
     public boolean isMatch(String s, String p) {
         int i = 0, j = 0;
-        int start = -1, mark = -1;
+        int star = -1, mark = -1;
 
         while(i < s.length()){
             if(j < p.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '?')){
                 i++;
                 j++;
             }else if(j < p.length() && p.charAt(j) == '*'){
-                start = j++;
+                star = j++;
                 mark = i;
-            }else if(start != -1){
-                j = start + 1;
+            }else if(star != -1){
+                j = star + 1;
                 i = ++mark;
             }else{
                 return false;
