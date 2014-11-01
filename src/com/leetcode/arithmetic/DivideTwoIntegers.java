@@ -3,7 +3,7 @@ package com.leetcode.arithmetic;
 /**
  * Divide two integers without using multiplication, division and mod operator.
  *
- * Reference: http://tech-wonderland.net/blog/leetcode-divide-two-integers.html
+ * Reference: http://www.lifeincode.net/programming/leetcode-divide-two-integers-java/
  *
  * Created by Xiaomeng on 9/5/2014.
  */
@@ -12,21 +12,24 @@ public class DivideTwoIntegers {
         if(dividend == 0) return 0;
         if(divisor == 1) return dividend;
 
-        boolean postive = true;
-        if((dividend > 0 && divisor < 0) || (dividend < 0 && divisor > 0)) postive = false;
+        long p = Math.abs((long)dividend);
+        long q = Math.abs((long)divisor);
 
-        int result = 0;
-        long a = Math.abs((long)dividend);
-        long b = Math.abs((long)divisor);
-
-        while(a >= b){
-            long c = b;
-            for(int i = 0; a >= c; i++, c <<= 1){
-                a -= c;
-                result += 1 << i;
+        int quotient = 0;
+        while(p >= q){
+            int count = 0;
+            while(p >= (q << count)){
+                count++;
             }
+            quotient += 1 << (count - 1);
+            p -= q << (count - 1);
         }
-        return postive ? result : -result;
+
+        if((dividend > 0 && divisor < 0) || (dividend < 0 && divisor > 0)){
+            return -quotient;
+        }else{
+            return quotient;
+        }
     }
 
     public static void main(String[] args){
