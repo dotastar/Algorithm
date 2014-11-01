@@ -60,9 +60,8 @@ public class ScrambleString {
     * Reference: http://www.cnblogs.com/TenosDoIt/p/3452004.html
     * */
     public boolean isScrambleRecurDP(String s1, String s2){
-        if(s1.length() != s2.length()) return false;
         int len = s1.length();
-        boolean[][][] memo = new boolean[len + 1][len][len];
+        boolean memo[][][] = new boolean[len + 1][len][len];
 
         for(int i = 0; i < len; i++){
             for(int j = 0; j < len; j++){
@@ -73,8 +72,7 @@ public class ScrambleString {
         for(int k = 2; k < len + 1; k++){
             for(int i = 0; i <= len - k; i++){
                 for(int j = 0; j <= len - k; j++){
-                    memo[k][i][j] = false;
-                    for(int div = 1; div < k && !memo[k][i][j]; div++){
+                    for(int div = 1; div <= k && !memo[k][i][j]; div++){
                         memo[k][i][j] = (memo[div][i][j] && memo[k - div][i + div][j + div])
                                 || (memo[div][i][j + k - div] && memo[k - div][i + div][j]);
                     }
