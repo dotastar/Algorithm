@@ -19,27 +19,37 @@ package com.leetcode.other;
  */
 public class StringToInteger {
     public int atoi(String str) {
-        if(str.trim().isEmpty()) return 0;
         str = str.trim();
+        if(str.isEmpty()) return 0;
+
         boolean positive = true;
+        int i = 0;
+        if(str.charAt(i) == '+'){
+            i++;
+        }else if(str.charAt(i) == '-'){
+            positive = false;
+            i++;
+        }
+
         long result = 0;
-        for(int i = 0; i < str.length(); i++){
-            if(i == 0 && (str.charAt(i) == '+' || str.charAt(i) == '-')){
-                if(str.charAt(i) == '-') positive = false;
-                else if(str.charAt(i) == '+') positive = true;
-            }else if(str.charAt(i) >= 48 && str.charAt(i) <= 57){
-                result = 10 * result + str.charAt(i) - 48;
+        while(i < str.length()){
+            char ch = str.charAt(i);
+            if(ch >= 48 && ch <= 57){
+                int num = ch - 48;
+                result = result * 10 + num;
+                i++;
             }else{
                 break;
             }
         }
         result = positive ? result : -result;
-        if(result > Integer.MAX_VALUE)
+        if(result > Integer.MAX_VALUE){
             return Integer.MAX_VALUE;
-        else if(result < Integer.MIN_VALUE)
+        }else if(result < Integer.MIN_VALUE){
             return Integer.MIN_VALUE;
-        else
+        }else{
             return (int)result;
+        }
     }
 
     public static void main(String[] args){
