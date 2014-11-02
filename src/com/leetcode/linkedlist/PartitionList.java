@@ -15,24 +15,25 @@ import com.leetcode.core.ListNode;
  */
 public class PartitionList {
     public static ListNode partition(ListNode head, int x) {
-        if(head == null || head.next == null) return head;
+        ListNode dummyHead1 = new ListNode(-1);
+        ListNode dummyHead2 = new ListNode(-1);
+        ListNode dummy1 = dummyHead1;
+        ListNode dummy2 = dummyHead2;
 
-        ListNode first = new ListNode(-1);
-        ListNode second = new ListNode(-1);
-        ListNode firstHead = first, secondHead = second;
-
-        while(head != null){
-            if(head.val < x){
-                first.next = new ListNode(head.val);
-                first = first.next;
+        ListNode node = head;
+        while(node != null){
+            if(node.val < x){
+                dummy1.next = node;
+                dummy1 = dummy1.next;
             }else{
-                second.next = new ListNode(head.val);
-                second = second.next;
+                dummy2.next = node;
+                dummy2 = dummy2.next;
             }
-            head = head.next;
+            node = node.next;
         }
-        first.next = secondHead.next;
-        return firstHead.next;
+        dummy2.next = null;
+        dummy1.next = dummyHead2.next;
+        return dummyHead1.next;
     }
 
     public static void main(String[] args){
