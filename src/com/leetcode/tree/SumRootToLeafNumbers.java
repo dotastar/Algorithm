@@ -34,6 +34,7 @@ public class SumRootToLeafNumbers {
         count = 10 * count + root.val;
         if(root.left == null && root.right == null){
             sum += count;
+            return;
         }
         sumNumbers(root.left, count);
         sumNumbers(root.right, count);
