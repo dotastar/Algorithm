@@ -1,6 +1,8 @@
 package com.fb;
 
 
+import com.leetcode.core.TreeNodeWithParent;
+
 /**
  * Given a binary tree, find the lowest common ancestor of two given nodes in the tree. Each node contains a parent pointer which links to its parent.
  *
@@ -47,17 +49,6 @@ public class LowestCommonAncestor3 {
             count++;
         }
         return count;
-    }
-
-    public static class TreeNodeWithParent{
-        TreeNodeWithParent left;
-        TreeNodeWithParent right;
-        TreeNodeWithParent parent;
-        int val;
-
-        public TreeNodeWithParent(int val){
-            this.val = val;
-        }
     }
 
     public static void main(String[] args){
