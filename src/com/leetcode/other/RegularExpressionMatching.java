@@ -31,21 +31,15 @@ public class RegularExpressionMatching {
     }
 
     public boolean isMatch(String s, String p, int i, int j){
-        if(j == p.length())
-            return i == s.length();
-        if(j == p.length() - 1)
-            return (i == s.length() - 1) && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
+        if(j == p.length() - 1) return (i == s.length() - 1) && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
+        if(j == p.length()) return i == s.length();
 
-        if(j + 1 < p.length() && p.charAt(j + 1) != '*'){
-            if(i >= s.length())
-                return false;
-            if(s.charAt(i) == p.charAt(j) || p.charAt(j) == '.'){
-                return isMatch(s, p, i + 1, j + 1);
-            }else{
-                return false;
-            }
+        if(p.charAt(j + 1) != '*'){
+            if(i == s.length()) return false;
+            return (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') && isMatch(s, p, i + 1, j + 1);
         }
-        while(i < s.length() && j < p.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.')){
+
+        while(i < s.length() && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.')){
             if(isMatch(s, p, i, j + 2)) return true;
             i++;
         }
