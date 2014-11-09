@@ -27,29 +27,26 @@ import java.util.List;
  *
  */
 public class CombinationSum2 {
-    List<List<Integer>> result;
-    List<Integer> single;
-
     public List<List<Integer>> combinationSum2(int[] num, int target) {
-        result = new ArrayList<List<Integer>>();
-        single = new ArrayList<Integer>();
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<Integer> single = new ArrayList<Integer>();
         Arrays.sort(num);
-        dfs(num, target, 0, 0);
+        combinationSum2(num, target, 0, 0, single, result);
         return result;
     }
 
-    public void dfs(int[] num, int target, int sum, int index){
-        if(sum > target) return;
-        if(sum == target){
-            if(!result.contains(single)) result.add(new ArrayList<Integer>(single));
+    public void combinationSum2(int[] num, int target, int count, int index, List<Integer> single, List<List<Integer>> result){
+        if(count > target) return;
+        if(count == target){
+            result.add(new ArrayList<Integer>(single));
             return;
         }
 
-        while(index < num.length){
-            single.add(num[index]);
-            dfs(num, target, sum + num[index], index + 1);
-            single.remove(single.size() - 1);
-            index++;
+        for(int i = index; i < num.length; i++){
+            if(i > index && num[i] == num[i - 1]) continue;
+            single.add(num[i]);
+            combinationSum2(num, target, count + num[i], i + 1, single, result);
+            single.remove(single.size() -1);
         }
     }
 
