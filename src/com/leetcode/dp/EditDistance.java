@@ -9,16 +9,12 @@ package com.leetcode.dp;
  *  b) Delete a character
  *  c) Replace a character
  *
- *  Created by Xiaomeng on 9/13/2014.
  */
 public class EditDistance {
     /**
      * Two dimensional DP
      * Reference: http://blog.unieagle.net/
      *
-     * @param word1
-     * @param word2
-     * @return
      */
     public int minDistance(String word1, String word2) {
         int[][] memo = new int[word1.length() + 1][word2.length() + 1];
@@ -40,5 +36,41 @@ public class EditDistance {
             }
         }
         return memo[word1.length()][word2.length()];
+    }
+
+    /**
+     * One dimensional DP!
+     *
+     */
+    public int minDistance2(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+
+        int[] memoUp = new int[n + 1];
+        int[] memoDown = new int[n + 1];
+
+        for(int i = 0; i < n + 1; i++){
+            memoUp[i] = i;
+        }
+
+        int j = 1;
+        while(j <= m){
+            for(int i = 0; i < n + 1 && j <= m; i++){
+                if(i == 0){
+                    memoDown[i] = j;
+                }else{
+                    if(word1.charAt(j - 1) == word2.charAt(i - 1)){
+                        memoDown[i] = memoUp[i - 1];
+                    }else{
+                        memoDown[i] = Math.min(Math.min(memoUp[i], memoDown[i - 1]), memoUp[i - 1]) + 1;
+                    }
+                }
+            }
+            int[] tmp = memoUp;
+            memoUp = memoDown;
+            memoDown = tmp;
+            j++;
+        }
+        return memoUp[n];
     }
 }
