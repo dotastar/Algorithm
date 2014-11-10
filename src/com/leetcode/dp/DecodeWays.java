@@ -19,35 +19,26 @@ package com.leetcode.dp;
  */
 public class DecodeWays {
     public int numDecodings(String s) {
-        if(s.trim().isEmpty()) return 0;
+        int len = s.length();
+        if(len == 0) return 0;
+        int[] memo = new int[len];
+        if(isValid(s, 0, 1)) memo[0] = 1;
+        if(len == 1) return memo[0];
+        if(isValid(s, 1, 2)) memo[1] += memo[0];
+        if(isValid(s, 0, 2)) memo[1]++;
 
-        int[] memo = new int[s.length()];
-        if(isValid(s.substring(0, 1))) memo[0] = 1;
-        if(s.length() == 1) return memo[0];
-        if(isValid(s.substring(1, 2))) memo[1] += memo[0];
-        if(isValid(s.substring(0, 2))) memo[1]++;
-
-        for(int i = 2; i < s.length(); i++){
-            if(isValid(s.substring(i, i + 1))){
-                memo[i] += memo[i - 1];
-            }
-
-            if(isValid(s.substring(i - 1, i + 1))){
-                memo[i] += memo[i - 2];
-            }
+        for(int i = 2; i < len; i++){
+            if(isValid(s, i, i + 1)) memo[i] += memo[i - 1];
+            if(isValid(s, i - 1, i + 1)) memo[i] += memo[i - 2];
         }
-        return memo[s.length() - 1];
+        return memo[len - 1];
     }
 
-    public boolean isValid(String s){
-        if(s.trim().isEmpty()) return false;
-        if(s.charAt(0) == '0') return false;
-        if(s.length() == 2){
-            String sub = s.substring(0, 2);
-            int num = Integer.parseInt(sub);
-            if(num > 26 || num < 1) return false;
-        }
-        return true;
+    public boolean isValid(String s, int i, int j){
+        if(i >= j) return false;
+        if(s.charAt(i) == '0') return false;
+        int num = Integer.parseInt(s.substring(i, j));
+        return num >= 1 && num <= 26;
     }
 
     /**
