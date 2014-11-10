@@ -14,6 +14,13 @@ import java.util.List;
  * Created by Xiaomeng on 9/8/2014.
  */
 public class RestoreIPAddresses {
+    /**
+     * IP address standard:
+     * each section >= 0 and <= 255
+     * each section with only 0 is legal
+     * each section with more than 1 digits, the first digit cannot be 0;
+     *
+     */
     public List<String> restoreIpAddresses(String s) {
         List<String> result = new ArrayList<String>();
         StringBuilder single = new StringBuilder();
