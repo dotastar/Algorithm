@@ -30,6 +30,14 @@ import java.util.List;
 public class Subsets {
     List<List<Integer>> result = new ArrayList<List<Integer>>();
 
+    /**
+     * We can compute this by realizing that when we generate a subset, each element has the “choice” of either being in there or not.
+     * That is, for the first element, there are 2 choices. For the second, there are two, etc. So, doing 2 * 2 * ... * 2 n times gives us 2^n subsets.
+     * We will not be able to do better than this in time or space complexity.
+     *
+     * Time:  O(2^n)
+     * Space: O(2^n)
+     */
     public List<List<Integer>> subsets(int[] S) {
         result.add(new ArrayList<Integer>());
         Arrays.sort(S);
