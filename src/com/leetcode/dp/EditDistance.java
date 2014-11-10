@@ -73,4 +73,21 @@ public class EditDistance {
         }
         return memoUp[n];
     }
+
+    /**
+     * Check if edit distance is 1
+     * Time(min(m, n))
+     */
+    public boolean isOneEditDistance(String word1, String word2){
+        for (int i = 0; i < word1.length() && i < word2.length(); i++)
+        {
+            if (word1.charAt(i) != word2.charAt(i))
+            {
+                return word1.substring(i + 1) == word2.substring(i + 1)       //case of change
+                        || word1.substring(i + 1) == word2.substring(i)       //case of s1 has extra
+                        || word1.substring(i) == word2.substring(i + 1);      //case of s2 has extra
+            }
+        }
+        return Math.abs(word1.length() - word2.length()) == 1;
+    }
 }
