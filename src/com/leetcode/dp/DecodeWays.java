@@ -50,6 +50,34 @@ public class DecodeWays {
         return true;
     }
 
+    /**
+     * Recursive solution: not verified
+     */
+    public int numDecodings2(String s) {
+        return numDecodings2(s, 0);
+    }
+
+    public int numDecodings2(String s, int index){
+        if(index >= s.length()){
+            return 1;
+        }
+
+        int count = 0;
+        int digit = Character.getNumericValue(s.charAt(index));
+        if(digit >= 1 && digit <= 26){
+            count += numDecodings2(s, index + 1);
+        }
+
+        if(index + 1 < s.length()){
+            String sub = s.substring(index, index + 2);
+            digit = Integer.parseInt(sub);
+            if(digit >= 10 && digit <= 26){
+                count += numDecodings2(s, index + 2);
+            }
+        }
+        return count;
+    }
+
     public static void main(String[] args){
         DecodeWays test = new DecodeWays();
         System.out.println(test.numDecodings("01"));
