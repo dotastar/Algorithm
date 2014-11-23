@@ -4,6 +4,7 @@ import com.leetcode.core.TreeNode;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Given a Binary Tree, find vertical sum of the nodes that are in same vertical line. Print all sums through different vertical lines.
@@ -29,16 +30,13 @@ import java.util.Map;
 public class BinaryTreeVerticalSum {
     public static void verticalSum(TreeNode root){
         if(root == null) return;
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-
+        Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
         verticalSum(root, 0, map);
-
         System.out.println(map.entrySet());
     }
 
     public static void verticalSum(TreeNode root, int hd, Map<Integer, Integer> map){
         if(root == null) return;
-
         int sum = map.get(hd) == null ? 0 : map.get(hd);
         map.put(hd, root.val + sum);
 
