@@ -34,40 +34,25 @@ public class PrintAllPaths {
         }
     }
 
-    /**
-     * Iterative
-     *
-     */
-    public static void printAllPathsIterative(TreeNode root){
-        if(root == null) return;
-        int[] path = new int[1000];
-        int pathLen = 0;
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        stack.add(root);
-        while(!stack.isEmpty()){
-            TreeNode node = stack.pop();
-            path[pathLen++] = node.val;
-
-            if(node.left == null && node.right == null){
-                printPaths(path, pathLen);
-            }else{
-                if(node.right != null) stack.push(node.right);
-                if(node.left != null) stack.push(node.left);
-            }
+    public static void printPaths(int[] path, int pathLen){
+        for(int i = 0; i < pathLen; i++){
+            System.out.print(path[i] + " ");
         }
+        System.out.println();
     }
 
+    /**
+     * Iterative: Level-order traversal
+     *
+     */
     public static void printAllPathToLeafNonRecursive(TreeNode root) {
-        if (root == null) {
-            return;
-        }
+        if (root == null) return;
 
         Queue<Object> q = new LinkedList<Object>();
         q.add(root);
         q.add(root.val + "");
 
         while(!q.isEmpty()){
-
             TreeNode head = (TreeNode) q.poll();
             String headPath = (String) q.poll();
 
@@ -88,15 +73,6 @@ public class PrintAllPaths {
                 q.add(rightStr);
             }
         }
-
-
-    }
-
-    public static void printPaths(int[] path, int pathLen){
-        for(int i = 0; i < pathLen; i++){
-            System.out.print(path[i] + " ");
-        }
-        System.out.println();
     }
 
     public static void main(String[] args){
