@@ -32,6 +32,7 @@ import java.util.*;
  */
 public class CloneGraph {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if(node == null) return null;
         Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
         Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
         queue.add(node);
