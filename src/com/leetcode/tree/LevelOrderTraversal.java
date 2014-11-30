@@ -96,6 +96,6 @@ public class LevelOrderTraversal {;
         for(List<Integer> level : test.levelOrder(root)){
             System.out.println(level);
         }
-    }
 
+    }
 }
