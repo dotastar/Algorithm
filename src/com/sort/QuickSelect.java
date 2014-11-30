@@ -1,5 +1,7 @@
 package com.sort;
 
+import java.util.Random;
+
 /**
  * Created by Xiaomeng on 11/8/2014.
  */
@@ -30,9 +32,10 @@ public class QuickSelect {
     }
 
     public int partition(int[] arr, int start, int end){
-        int mid = start + (end - start)/2;
-        int pivot = arr[mid];
-        swap(arr, mid, end);
+        Random random = new Random();
+        int pivotIndex = start + random.nextInt(end - start + 1);
+        int pivot = arr[pivotIndex];
+        swap(arr, pivotIndex, end);
 
         int index = start;
         for(int i = start; i <= end; i++){
