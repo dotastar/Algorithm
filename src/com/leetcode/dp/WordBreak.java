@@ -38,7 +38,22 @@ public class WordBreak {
         return false;
     }
 
-    public boolean wordBreakAlternative(String s, Set<String> dict) {
+    /*
+    * DFS: O(2^n)
+    * */
+    public boolean wordBreak2(String s, Set<String> dict) {
+        if(s.length() == 0) return true;
+        for(int i = 1; i <= s.length(); i++){
+            String sub = s.substring(0, i);
+            if(dict.contains(sub) && wordBreak2(s.substring(i), dict)) return true;
+        }
+        return false;
+    }
+
+    /*
+    * DP: O(mn)
+    * */
+    public boolean wordBreak3(String s, Set<String> dict) {
         boolean[] memo = new boolean[s.length() + 1];
         memo[0] = true;
         for(int i = 0; i < s.length(); i++){
@@ -56,6 +71,24 @@ public class WordBreak {
         return memo[s.length()];
     }
 
+    /*
+    * DP: O(n ^ 2)
+    * */
+    public boolean wordBreak4(String s, Set<String> dict) {
+        int len = s.length();
+        boolean[] memo = new boolean[len + 1];
+        memo[0] = true;
+        for(int i = 1; i <= len; i++){
+            for(int j = 0; j < i; j++){
+                if(memo[j] && dict.contains(s.substring(j, i))){
+                    memo[i] = true;
+                    break;
+                }
+            }
+        }
+        return memo[len];
+    }
+
     public static void main(String[] args){
         String s = "abcd";
         Set<String> dict = new HashSet<String>();
@@ -64,7 +97,6 @@ public class WordBreak {
         dict.add("b");
         dict.add("cd");
         WordBreak test = new WordBreak();
-        System.out.println(test.wordBreakAlternative(s, dict));
-
+        System.out.println(test.wordBreak2(s, dict));
     }
 }
