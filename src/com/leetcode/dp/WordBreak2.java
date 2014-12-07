@@ -67,6 +67,7 @@ public class WordBreak2 {
             memo.add(new ArrayList<Integer>());
         }
         for(int i = 0; i < s.length(); i++){
+            if(i != 0 && memo.get(i).size() == 0) continue;
             for(String word : dict){
                 int end = i + word.length();
                 if(end <= s.length()){
@@ -94,6 +95,35 @@ public class WordBreak2 {
             if(curr != s.length()) single.deleteCharAt(0);
             single.delete(0, curr - p);
 
+        }
+    }
+
+    /**
+     * DFS: TLE
+     *
+     */
+    public List<String> wordBreak3(String s, Set<String> dict) {
+        List<String> result = new ArrayList<String>();
+        StringBuilder single = new StringBuilder();
+        wordBreak3(s, 0, dict, single, result);
+        return result;
+    }
+
+    public void wordBreak3(String s, int index, Set<String> dict, StringBuilder single, List<String> result){
+        if(index == s.length()){
+            result.add(single.toString());
+            return;
+        }
+
+        for(int i = index + 1; i <= s.length(); i++){
+            String sub = s.substring(index, i);
+            if(dict.contains(sub)){
+                single.append(sub);
+                if(i != s.length()) single.append(" ");
+                wordBreak3(s, i, dict, single, result);
+                if(i != s.length()) single.deleteCharAt(single.length() - 1);
+                single.delete(single.length() - sub.length(), single.length());
+            }
         }
     }
 
