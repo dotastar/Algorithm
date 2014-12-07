@@ -46,7 +46,7 @@ public class WordLadder2 {
      *       rex
      *
      * WordLadder1:
-     * Since we only need to calculate the shortest length, we don't care the case that both 'ted' and 'red' will be transformed to the same 'tex'.
+     * Since we only need to calculate the shortest length, we don't care the case that both 'ted' and 'rex' will be transformed to the same 'tex'.
      * Hence, for performance purpose, we just remove 'tex' in dictionary when transforming 'ted' to 'tex',
      * in which case, when considering 'rex', we don't even need to perform any operations give 'tex' is already removed from the dict.
      *
