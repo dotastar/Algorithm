@@ -54,6 +54,41 @@ public class SpiralMatrix {
         spiralOrder(matrix, row + 1, col + 1, rows - 1, cols - 1);
     }
 
+    /**
+     * Cleaner solution!!
+     *
+     */
+    public List<Integer> spiralOrder2(int[][] matrix) {
+        List<Integer> result = new ArrayList<Integer>();
+        int m = matrix.length;
+        if(m == 0) return result;
+        int n = matrix[0].length;
+
+        int row = 0, col = -1;
+        while(true){
+            for(int i = 0; i < n; i++){
+                result.add(matrix[row][++col]);
+            }
+            if(--m == 0) break;
+
+            for(int i = 0; i < m; i++){
+                result.add(matrix[++row][col]);
+            }
+            if(--n == 0) break;
+
+            for(int i = 0; i < n; i++){
+                result.add(matrix[row][--col]);
+            }
+            if(--m == 0) break;
+
+            for(int i = 0; i < m; i++){
+                result.add(matrix[--row][col]);
+            }
+            if(--n == 0) break;
+        }
+        return result;
+    }
+
     public static void main(String[] args){
         int[][] matrix = {
                 {1,2,4},
