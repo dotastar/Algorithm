@@ -72,6 +72,40 @@ public class SpiralMatrix2 {
         return result;
     }
 
+    /**
+     * Generic solution!!
+     *
+     */
+    public int[][] generateMatrix(int m, int n) {
+        int[][] result = new int[m][n];
+        if(n == 0) return result;
+        int count = 1;
+        int row = 0, col = -1;
+
+        while(true){
+            for(int i = 0; i < n; i++){
+                result[row][++col] = count++;
+            }
+            if(--m == 0) break;
+
+            for(int i = 0; i < m; i++){
+                result[++row][col] = count++;
+            }
+            if(--n == 0) break;
+
+            for(int i = 0; i < n; i++){
+                result[row][--col] = count++;
+            }
+            if(--m == 0) break;
+
+            for(int i = 0; i < m; i++){
+                result[--row][col] = count++;
+            }
+            if(--n == 0) break;
+        }
+        return result;
+    }
+
     public static void main(String[] args){
         SpiralMatrix2 test = new SpiralMatrix2();
         int[][] matrix = test.generateMatrix(3);
