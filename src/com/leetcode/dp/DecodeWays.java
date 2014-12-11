@@ -42,35 +42,33 @@ public class DecodeWays {
     }
 
     /**
-     * Recursive solution: not verified
+     * Recursive solution: O(2^n)
+     *
      */
     public int numDecodings2(String s) {
-        return numDecodings2(s, 0);
+        if(s.length() == 0) return 0;
+        return numDecodings2(s, s.length() - 1);
     }
 
     public int numDecodings2(String s, int index){
-        if(index >= s.length()){
-            return 1;
+        int result = 0;
+        if(index == 0){
+            return isValid(s, 0, 1) ? 1 : 0;
         }
 
-        int count = 0;
-        int digit = Character.getNumericValue(s.charAt(index));
-        if(digit >= 1 && digit <= 26){
-            count += numDecodings2(s, index + 1);
+        if(index == 1){
+            result += numDecodings2(s, 0);
+            if(isValid(s, 0, 2)) result += 1;
+            return result;
         }
 
-        if(index + 1 < s.length()){
-            String sub = s.substring(index, index + 2);
-            digit = Integer.parseInt(sub);
-            if(digit >= 10 && digit <= 26){
-                count += numDecodings2(s, index + 2);
-            }
-        }
-        return count;
+        if(isValid(s, index, index + 1)) result += numDecodings2(s, index - 1);
+        if(isValid(s, index - 1, index + 1)) result += numDecodings2(s, index - 2);
+        return result;
     }
 
     public static void main(String[] args){
         DecodeWays test = new DecodeWays();
-        System.out.println(test.numDecodings("01"));
+        System.out.println(test.numDecodings2("123"));
     }
 }
