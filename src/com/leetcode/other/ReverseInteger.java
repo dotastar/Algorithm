@@ -20,15 +20,14 @@ package com.leetcode.other;
  */
 public class ReverseInteger {
     public int reverse(int x) {
-        boolean positive = x >= 0;
-        x = Math.abs(x);
         int result = 0;
+        int measure = Integer.MAX_VALUE / 10;
         while(x != 0){
+            if(Math.abs(result) > measure) return 0;
             result = result * 10 + x % 10;
-            x = x / 10;
+            x /= 10;
         }
-        if(result < 0) return -1;
-        return positive ? result : -result;
+        return result;
     }
 
     public static void main(String[] args){
