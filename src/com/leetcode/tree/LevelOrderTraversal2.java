@@ -54,4 +54,34 @@ public class LevelOrderTraversal2 {
         Collections.reverse(result);
         return result;
     }
+
+    public List<List<Integer>> levelOrderBottom2(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if(root == null) return result;
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
+        int currLevel = 1;
+        int nextLevel = 0;
+
+        while(!queue.isEmpty()){
+            List<Integer> level = new ArrayList<Integer>();
+            for(int i = 0; i < currLevel; i++){
+                TreeNode node = queue.poll();
+                level.add(node.val);
+                if(node.left != null){
+                    queue.add(node.left);
+                    nextLevel++;
+                }
+
+                if(node.right != null){
+                    queue.add(node.right);
+                    nextLevel++;
+                }
+            }
+            result.add(0, level);
+            currLevel = nextLevel;
+            nextLevel = 0;
+        }
+        return result;
+    }
 }
