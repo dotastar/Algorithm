@@ -25,23 +25,25 @@ package com.leetcode.dp;
  */
 public class UniquePaths2 {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-        int[][] memo = new int[obstacleGrid.length][obstacleGrid[0].length];
-        for(int i = 0; i < memo.length; i++){
-            for(int j = 0; j < memo[0].length; j++){
+        int m = obstacleGrid.length;
+        if(m == 0) return 0;
+        int n = obstacleGrid[0].length;
+
+        int[][] memo = new int [m][n];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
                 memo[i][j] = -1;
             }
         }
-        int m = obstacleGrid.length - 1;
-        int n = obstacleGrid[0].length - 1;
         memo[0][0] = 1;
-        return uniquePathsWithObstacles(obstacleGrid, memo, m, n);
+        return uniquePaths(obstacleGrid, m - 1, n - 1, memo);
     }
 
-    public int uniquePathsWithObstacles(int[][] obstacleGrid, int[][] memo, int m, int n){
-        if(m < 0 || n < 0 || m >= obstacleGrid.length || n >= obstacleGrid[0].length) return 0;
-        if(obstacleGrid[m][n] == 1) memo[m][n] = 0;
+    public int uniquePaths(int[][] obstacleGrid, int m, int n, int[][] memo){
+        if(m < 0 || n < 0 || obstacleGrid[m][n] == 1) return 0;
+
         if(memo[m][n] == -1){
-            memo[m][n] = uniquePathsWithObstacles(obstacleGrid, memo, m - 1, n) + uniquePathsWithObstacles(obstacleGrid, memo, m, n - 1);
+            memo[m][n] = uniquePaths(obstacleGrid, m - 1, n, memo) + uniquePaths(obstacleGrid, m, n - 1, memo);
         }
         return memo[m][n];
     }
