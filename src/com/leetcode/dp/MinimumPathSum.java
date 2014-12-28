@@ -30,6 +30,34 @@ public class MinimumPathSum {
         return memo[rows][cols];
     }
 
+    /**
+     * Bottom-up DP
+     * Time: O(mn)
+     * Space: O(n)
+     *
+     */
+    public int minPathSum2(int[][] grid) {
+        int m = grid.length;
+        if(m == 0) return 0;
+        int n = grid[0].length;
+
+        int[] curr = new int[n];
+        int[] next = new int[n];
+
+        curr[0] = grid[0][0];
+        for(int i = 1; i < n; i++){
+            curr[i] = curr[i - 1] + grid[0][i];
+        }
+
+        for(int i = 1; i < m; i++){
+            for(int j = 0; j < n; j++){
+                next[j] = j == 0 ? grid[i][j] + curr[j]: Math.min(next[j - 1], curr[j]) + grid[i][j];
+            }
+            curr = next;
+        }
+        return curr[n - 1];
+    }
+
     public static void main(String[] args){
         int[][] grid = {
                 {2,3,8},
