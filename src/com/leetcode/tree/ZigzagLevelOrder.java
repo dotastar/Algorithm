@@ -55,4 +55,42 @@ public class ZigzagLevelOrder {
         }
         return result;
     }
+
+    /**
+     * Two Stack Solution
+     *
+     */
+    public List<List<Integer>> zigzagLevelOrder2(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        if(root == null) return result;
+
+        Stack<TreeNode> currLevel = new Stack<TreeNode>();
+        Stack<TreeNode> nextLevel = new Stack<TreeNode>();
+
+        currLevel.add(root);
+        boolean leftToRight = true;
+
+        List<Integer> level = new ArrayList<Integer>();
+        while(!currLevel.isEmpty()){
+            TreeNode node = currLevel.pop();
+            level.add(node.val);
+
+            if(leftToRight){
+                if(node.left != null) nextLevel.push(node.left);
+                if(node.right != null) nextLevel.push(node.right);
+            }else{
+                if(node.right != null) nextLevel.push(node.right);
+                if(node.left != null) nextLevel.push(node.left);
+            }
+
+            if(currLevel.isEmpty()){
+                result.add(level);
+                level = new ArrayList<Integer>();
+                currLevel = nextLevel;
+                nextLevel = new Stack<TreeNode>();
+                leftToRight = !leftToRight;
+            }
+        }
+        return result;
+    }
 }
