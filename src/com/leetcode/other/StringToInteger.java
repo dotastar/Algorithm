@@ -20,7 +20,8 @@ package com.leetcode.other;
 public class StringToInteger {
     public int atoi(String str) {
         str = str.trim();
-        if(str.isEmpty()) return 0;
+        int len = str.length();
+        if(len == 0) return 0;
 
         boolean positive = true;
         int i = 0;
@@ -31,25 +32,22 @@ public class StringToInteger {
             i++;
         }
 
-        long result = 0;
-        while(i < str.length()){
+        int result = 0;
+        int measure = Integer.MAX_VALUE / 10;
+        while(i < len){
             char ch = str.charAt(i);
-            if(ch >= 48 && ch <= 57){
-                int num = ch - 48;
-                result = result * 10 + num;
-                i++;
+            if(ch >= '0' && ch <= '9'){
+                int digit = ch - '0';
+                if(result > measure || (result == measure && digit >= 8)){
+                    return positive? Integer.MAX_VALUE : Integer.MIN_VALUE;
+                }
+                result = result * 10 + digit;
             }else{
                 break;
             }
+            i++;
         }
-        result = positive ? result : -result;
-        if(result > Integer.MAX_VALUE){
-            return Integer.MAX_VALUE;
-        }else if(result < Integer.MIN_VALUE){
-            return Integer.MIN_VALUE;
-        }else{
-            return (int)result;
-        }
+        return positive ? result : -result;
     }
 
     public static void main(String[] args){
