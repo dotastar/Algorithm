@@ -32,6 +32,28 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return Math.max(max, len);
     }
 
+    /**
+     * One pass solution!
+     *
+     */
+    public int lengthOfLongestSubstring2(String s) {
+        if(s.isEmpty()) return 0;
+        int[] hash = new int[256];
+        Arrays.fill(hash, -1);
+        int i = 0;
+        int max = 0;
+
+        for(int j = 0; j < s.length(); j++){
+            char ch = s.charAt(j);
+            if(hash[ch] >= i){
+                i = hash[ch] + 1;
+            }
+            hash[ch] = j;
+            max = Math.max(max, j - i + 1);
+        }
+        return max;
+    }
+
     public static void main(String[] args){
         LongestSubstringWithoutRepeatingCharacters test = new LongestSubstringWithoutRepeatingCharacters();
         String s = "abcaefg";
