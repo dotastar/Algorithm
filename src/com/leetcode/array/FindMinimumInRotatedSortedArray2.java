@@ -17,33 +17,27 @@ package com.leetcode.array;
  * Created by Xiaomeng on 10/22/2014.
  */
 public class FindMinimumInRotatedSortedArray2 {
+    /**
+     * For case where AL == AM == AR, the minimum could be on AM’s left or right side (eg,
+     * [1, 1, 1, 0, 1] or [1, 0, 1, 1, 1]). In this case, we could not discard either subarrays and
+     * therefore such worst case degenerates to the order of O(n)
+     *
+     */
     public int findMin(int[] num) {
-        if(num.length == 0) return 0;
-        return binarySearch(num, 0, num.length - 1);
-    }
+        int start = 0;
+        int end = num.length - 1;
 
-    public int binarySearch(int[] num, int start, int end){
-        if(start > end) return num[0];
-        if(start == end) return num[start];
-
-        if(num[start] < num[end]){
-            return num[start];
+        while(start < end && num[start] >= num[end]){
+            int mid = start + (end - start)/2;
+            if(num[mid] > num[end]){
+                start = mid + 1;
+            }else if(num[mid] < num[start]){
+                end = mid;
+            }else{
+                start++;
+            }
         }
-
-        int mid = start + (end - start)/2;
-        if(mid - 1 >= 0 && num[mid] < num[mid - 1]){
-            return num[mid];
-        }
-
-        if(num[start] == num[mid] && num[end] == num[mid]){
-            return Math.min(binarySearch(num, start, mid - 1), binarySearch(num, mid + 1, end));
-        }
-
-        if(num[start] > num[mid]){
-            return binarySearch(num, start, mid - 1);
-        }else{
-            return binarySearch(num, mid + 1, end);
-        }
+        return num[start];
     }
 
     public static void main(String[] args){
