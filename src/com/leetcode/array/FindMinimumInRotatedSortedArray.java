@@ -13,27 +13,18 @@ package com.leetcode.array;
  */
 public class FindMinimumInRotatedSortedArray {
     public int findMin(int[] num) {
-        if(num.length == 0) return 0;
-        return binarySearch(num, 0, num.length - 1);
-    }
+        int start = 0;
+        int end = num.length - 1;
 
-    public int binarySearch(int[] num, int start, int end){
-        if(start == end) return num[start];
-
-        if(num[start] < num[end]){
-            return num[start];
+        while(start < end && num[start] > num[end]){
+            int mid = start + (end - start)/2;
+            if(num[mid] > num[end]){
+                start = mid + 1;
+            }else{
+                end = mid;
+            }
         }
-
-        int mid = start + (end - start)/2;
-        if(mid - 1 >= 0 && num[mid] < num[mid - 1]){
-            return num[mid];
-        }
-
-        if(num[start] > num[mid]){
-            return binarySearch(num, start, mid - 1);
-        }else{
-            return binarySearch(num, mid + 1, end);
-        }
+        return num[start];
     }
 
     public static void main(String[] args){
