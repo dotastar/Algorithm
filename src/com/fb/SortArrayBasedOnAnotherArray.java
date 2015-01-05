@@ -16,6 +16,7 @@ public class SortArrayBasedOnAnotherArray{
      * Time: O(m + n + plogp) -> remaining elements in A1
      * Space: O(m)
      *
+     * http://www.geeksforgeeks.org/sort-array-according-order-defined-another-array/
      */
     public static void sortAccording(int[] A1, int[] A2){
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
