@@ -6,39 +6,34 @@ import com.leetcode.core.TreeNodeWithParent;
 /**
  * Given a binary tree, find the lowest common ancestor of two given nodes in the tree. Each node contains a parent pointer which links to its parent.
  *
- * Created by Xiaomeng on 10/28/2014.
  */
 public class LowestCommonAncestor3 {
     /**
      * Time: O(h) - h is the height of the binary tree
      * Space: O(1)
+     *
+     * Note: The two given nodes might not come from the same tree
+     *
      */
     public TreeNodeWithParent getLCA(TreeNodeWithParent root, TreeNodeWithParent p, TreeNodeWithParent q){
-        if(root == null || p == null || q == null) return null;
+        if(root == null || q == null || q == null) return null;
         if(root == p || root == q) return root;
 
         int pHeight = getHeight(p);
         int qHeight = getHeight(q);
+        if(pHeight > qHeight) return getLCA(root, q, p);
 
-        if(pHeight > qHeight){
-            int heightDiff = pHeight - qHeight;
-            while(heightDiff > 0){
-                p = p.parent;
-                heightDiff--;
-            }
-        }else if(pHeight < qHeight){
-            int heightDiff = qHeight - pHeight;
-            while(heightDiff > 0){
-                q = q.parent;
-                heightDiff--;
-            }
-        }
-        while(p != null && q != null){
-            if(p == q) return p;
-            p = p.parent;
+        int diff = qHeight - pHeight;
+        while(diff > 0){
             q = q.parent;
+            diff--;
         }
 
+        while(q != null && p != null){
+            if(p == q) return p;
+            q = q.parent;
+            p = p.parent;
+        }
         return null;
     }
 
