@@ -15,9 +15,34 @@ package com.leetcode.dp;
  *
  *  The number of ways decoding "12" is 2.
  *
- *  Created by Xiaomeng on 9/9/2014.
  */
 public class DecodeWays {
+    /**
+     * Best solution!
+     *
+     * Time: O(n) Space: O(1)
+     *
+     */
+    public int numDecodings3(String s) {
+        int len = s.length();
+        if(len == 0) return 0;
+        int first = isValid(s, 0, 1) ? 1 : 0;
+        if(len == 1) return first;
+        int second = isValid(s, 0, 2) ? 1 : 0;
+        if(isValid(s, 1, 2)) second += first;
+        if(len == 2) return second;
+
+        int result = 0;
+        for(int i = 2; i < len; i++){
+            result = 0;
+            if(isValid(s, i, i + 1)) result += second;
+            if(isValid(s, i - 1, i + 1)) result += first;
+            first = second;
+            second = result;
+        }
+        return result;
+    }
+
     public int numDecodings(String s) {
         int len = s.length();
         if(len == 0) return 0;
