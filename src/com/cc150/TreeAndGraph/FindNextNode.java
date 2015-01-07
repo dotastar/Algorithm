@@ -23,11 +23,7 @@ public class FindNextNode {
         if(node == null) return null;
 
         if(node.parent == null || node.right != null){
-            TreeNodeWithParent leftChild = node.right;
-            while(leftChild.left != null){
-                leftChild = leftChild.left;
-            }
-            return leftChild;
+            return leftMostChild(node.right);
         }else{
             TreeNodeWithParent currParent = node.parent;
             while(currParent != null && currParent.left != node){
@@ -36,6 +32,14 @@ public class FindNextNode {
             }
             return currParent;
         }
+    }
+
+    public static TreeNodeWithParent leftMostChild(TreeNodeWithParent node){
+        if(node == null) return null;
+        while(node.left != null){
+            node = node.left;
+        }
+        return node;
     }
 
     /**
