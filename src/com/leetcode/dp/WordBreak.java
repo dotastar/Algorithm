@@ -73,6 +73,8 @@ public class WordBreak {
 
     /*
     * DP: O(n ^ 2)
+    * http://blog.csdn.net/linhuanmars/article/details/22358863 -- good explanation about DP!
+    *
     * */
     public boolean wordBreak4(String s, Set<String> dict) {
         int len = s.length();
