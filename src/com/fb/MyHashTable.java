@@ -1,7 +1,5 @@
 package com.fb;
 
-import com.leetcode.core.ListNode;
-
 import java.util.ArrayList;
 import java.util.List;
 
