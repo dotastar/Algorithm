@@ -36,7 +36,7 @@ public class LargestRectangleHistogram {
 
     public static void main(String[] args){
         LargestRectangleHistogram test = new LargestRectangleHistogram();
-        int[] height = {0,0};
+        int[] height = {2,1,5,6,2,3};
         System.out.println(test.largestRectangleArea(height));
     }
 }
