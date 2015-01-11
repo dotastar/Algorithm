@@ -9,7 +9,6 @@ import java.util.Map;
  *  get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
  *  set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
  *
- *  Created by Xiaomeng on 8/19/2014.
  */
 public class LRUCache {
     Map<Integer, DoublyLinkedListNode> cache;
@@ -22,6 +21,7 @@ public class LRUCache {
      * 1. removeNode and setHead are two separate steps
      * 2. when do set(), what if the key already exists in the cache? Update it!
      * 3. corner cases when head/end is null; also when do setHead/removeNode, don't forget to reset the backward pointer!
+     * 4. When reaches the capacity and deleting the tail node, don't forget to remove the entry from cache as well!
      *
      */
     public LRUCache(int capacity) {
@@ -51,7 +51,6 @@ public class LRUCache {
             if(cache.size() == capacity){
                 cache.remove(end.key); // This is why we need to put the key in the node!
                 removeNode(end);
-
             }
             cache.put(key, node);
             setHead(node);
