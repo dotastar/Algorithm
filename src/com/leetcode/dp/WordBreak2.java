@@ -127,6 +127,51 @@ public class WordBreak2 {
         }
     }
 
+
+    /**
+     * Latest one!
+     * DP solution
+     *
+     */
+    public List<String> wordBreak4(String s, Set<String> dict) {
+        int len = s.length();
+        List<String> result = new ArrayList<String>();
+        if(len == 0) return result;
+
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+        for(int i = 0; i <= len; i++) list.add(new ArrayList<Integer>());
+
+        for(int i = 1; i <= len; i++){
+            for(int j = 0; j < i; j++){
+                String sub = s.substring(j, i);
+                if((j == 0 || list.get(j).size() != 0) && dict.contains(sub)){
+                    list.get(i).add(j);
+                }
+            }
+        }
+
+        StringBuilder single = new StringBuilder();
+        backtrack4(s, s.length(), list, single, result);
+        return result;
+    }
+
+
+    public void backtrack4(String s, int index, List<List<Integer>> list, StringBuilder single, List<String> result){
+        if(index == 0){
+            result.add(single.toString());
+            return;
+        }
+
+        for(int i : list.get(index)){
+            String sub = s.substring(i, index);
+            single.insert(0, sub);
+            if(i != 0) single.insert(0, " ");
+            backtrack4(s, i, list, single, result);
+            single.delete(0, sub.length());
+            if(i != 0) single.deleteCharAt(0);
+        }
+    }
+
     public static void main(String[] args){
         WordBreak2 test = new WordBreak2();
         String s = "catsanddog";
