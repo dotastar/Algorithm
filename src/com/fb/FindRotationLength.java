@@ -5,6 +5,8 @@ package com.fb;
  * then rotated by an unknown amount X where 0 <= X <= (arrayLength – 1). An array rotation by amount X moves every element array[i] to array[(i + X) % arrayLength].
  * FindSortedArrayRotation discovers and returns X by examining the array.
  *
+ * http://how-to-crack-algorithms.blogspot.com/2011/09/searching-pivot-in-sorted-rotated-array.html
+ *
  */
 public class FindRotationLength {
     public static int findPivotIndex(int[] arr){
