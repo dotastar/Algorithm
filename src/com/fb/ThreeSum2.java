@@ -17,7 +17,7 @@ public class ThreeSum2 {
     public static List<List<Integer>> threeSum(int[] num) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         List<Integer> single = new ArrayList<Integer>();
-        Arrays.sort(num);
+        Arrays.sort(num); // Don't need to sort if you don't want sorted result
         threeSum(num, 0, 0, 0, single, result);
         return result;
     }
