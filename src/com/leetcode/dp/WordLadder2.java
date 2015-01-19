@@ -29,10 +29,6 @@ import java.util.*;
  *  Created by Xiaomeng on 9/15/2014.
  */
 public class WordLadder2 {
-    Queue<String> queue;
-    List<List<String>> result;
-    Map<String, List<String>> map;
-    List<String> single;
 
     /**
      *
@@ -55,77 +51,64 @@ public class WordLadder2 {
      * So, we remove both 'ted' and 'rex' in one shot in the next loop.
      *
      */
-
     public List<List<String>> findLadders(String start, String end, Set<String> dict) {
-        result = new ArrayList<List<String>>();
-        single = new ArrayList<String>();
-        if(start.equals(end)){
-            single.add(start);
-            single.add(end);
-            result.add(single);
-            return result;
-        }
-
-        map = new HashMap<String, List<String>>();
+        Map<String, List<String>> map = new HashMap<String, List<String>>();
+        dict.add(start);
+        dict.add(end);
         for(String word : dict){
             map.put(word, new ArrayList<String>());
         }
-        map.put(start, new ArrayList<String>());
-        map.put(end, new ArrayList<String>());
 
-        queue = new LinkedList<String>();
-        queue.offer(start);
-        List<String> currentLevel = new ArrayList<String>();
+        Queue<String> queue = new LinkedList<String>();
+        queue.add(start);
+        List<String> currLevel = new ArrayList<String>();
         while(!queue.isEmpty()){
             int size = queue.size();
-            currentLevel.clear();
+            currLevel.clear();
             for(int i = 0; i < size; i++){
-                String top = queue.poll();
-                dict.remove(top);
-                currentLevel.add(top);
+                String s = queue.poll();
+                dict.remove(s);
+                currLevel.add(s);
             }
 
-            for(String s : currentLevel){
-                for(int j = 0; j < s.length(); j++){
-                    for(char c = 'a'; c <= 'z'; c++){
-                        if(s.charAt(j) == c) continue;
-                        String tmp = replace(s, j, c);
-                        if(tmp.equals(end)){
-                            map.get(end).add(s);
-                            queue.offer(tmp);
-                        }else if(dict.contains(tmp)){
-                            if(!queue.contains(tmp)) queue.offer(tmp);
-                            map.get(tmp).add(s);
+            for(String word : currLevel){
+                for(int i = 0; i < word.length(); i++){
+                    for(char ch = 'a'; ch <= 'z'; ch++){
+                        if(word.charAt(i) == ch) continue;
+                        String tmp = convert(word, i, ch);
+                        if(dict.contains(tmp)){
+                            if(!queue.contains(tmp)) queue.add(tmp);
+                            map.get(tmp).add(word);
                         }
                     }
                 }
             }
-            if(queue.contains(end))
-                break;
+            if(queue.contains(end)) break;
         }
+
+        List<List<String>> result = new ArrayList<List<String>>();
+        List<String> single = new ArrayList<String>();
         single.add(end);
-        buildPath(start, end);
+        buildPath(start, end, map, single, result);
         return result;
     }
 
-    private void buildPath(String start, String end){
+    public void buildPath(String start, String end, Map<String, List<String>> map, List<String> single, List<List<String>> result){
         if(end.equals(start)){
-            List<String> tmp = new ArrayList<String>(single);
-            Collections.reverse(tmp);
-            result.add(tmp);
+            result.add(new ArrayList<String>(single));
             return;
         }
 
         for(String s : map.get(end)){
-            single.add(s);
-            buildPath(start, s);
-            single.remove(single.size() - 1);
+            single.add(0, s);
+            buildPath(start, s, map, single, result);
+            single.remove(0);
         }
     }
 
-    private String replace(String s, int index, char c){
-        char[] arr = s.toCharArray();
-        arr[index] = c;
+    public String convert(String word, int index, char ch){
+        char[] arr = word.toCharArray();
+        arr[index] = ch;
         return new String(arr);
     }
 
