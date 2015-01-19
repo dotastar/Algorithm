@@ -14,7 +14,7 @@ package com.fb;
  *
  */
 public class ReadLine {
-    String buffer = null;
+    String buff = null;
     int p = 0;
 
     /**
@@ -26,19 +26,19 @@ public class ReadLine {
         boolean EOF = false;
         while(true){
             if(!EOF){
-                if(buffer == null || p == buffer.length()){
-                    buffer = read4096();
+                if(buff == null || p == buff.length()){
+                    buff = read4096();
                     p = 0;
-                    if(buffer.length() < 4096) EOF = true;
+                    if(buff.length() < 4096) EOF = true;
                 }else{
                     int i;
-                    for(i = p; i < buffer.length(); i++){
-                        if(buffer.charAt(i) == '\0' || buffer.charAt(i) == '\n') break;
+                    for(i = p; i < buff.length(); i++){
+                        if(buff.charAt(i) == '\0' || buff.charAt(i) == '\n') break;
                     }
                     int oldSize = result.length();
-                    result.append(buffer.substring(p, i + 1));
+                    result.append(buff.substring(p, i + 1));
                     p = i + 1;
-                    if(i != buffer.length()) break;
+                    if(i != buff.length()) break;
                 }
 
             }
@@ -46,8 +46,44 @@ public class ReadLine {
         return result.toString();
     }
 
+
+    char[] buffer = new char[4096];
+    int bufferSize = 0;
+    int bufferPos = 0;
+
+    public void readLine2(char[] buf){
+        int pos = 0;
+        boolean eof = false;
+        while(!eof){
+            int size = bufferSize > 0 ? bufferSize : read4096(buffer);
+            if(bufferSize == 0 && size < 4096) eof = true;
+            int i;
+            for(i = bufferPos; i < bufferPos + size; i++){
+                if(buffer[i] == '\0' || buffer[i] == '\n') break;
+            }
+            if(i == bufferPos + size){
+                System.arraycopy(buffer, bufferPos, buf, pos, i - bufferPos);
+                pos += i -bufferPos;
+                bufferPos = 0;
+                bufferSize = 0;
+            }else{
+                System.arraycopy(buffer, bufferPos, buf, pos, i - bufferPos + 1);
+                pos += i - bufferPos + 1;
+                bufferPos = (i + 1) % 4096;
+                bufferSize = size - (i - bufferPos + 1);
+                return;
+            }
+        }
+    }
+
     public String read4096(){
         //given implement
         return "";
+    }
+
+
+    public int read4096(char[] buf){
+        //given implement
+        return 1;
     }
 }
