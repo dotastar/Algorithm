@@ -14,6 +14,8 @@ import java.util.PriorityQueue;
  *  32, 33, 39, 50
  *
  *  The 3rd smallest element is 20 and 7th smallest element is 30
+ *
+ *  Reference: http://www.geeksforgeeks.org/kth-smallest-element-in-a-row-wise-and-column-wise-sorted-2d-array-set-1/
  */
 public class KthSmallestInSortedMatrix {
     /**
