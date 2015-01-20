@@ -117,8 +117,10 @@ public class SchedulingProblems {
     /**
      * Given a set of n jobs with [start time, end time, cost] find a subset so that no 2 jobs overlap and the cost is maximum
      *
-     * Reference: (last reply)
-     * http://cs.stackexchange.com/questions/11265/find-non-overlapping-scheduled-jobs-with-maximum-cost
+     * Reference:
+     * http://cs.stackexchange.com/questions/11265/find-non-overlapping-scheduled-jobs-with-maximum-cost (last reply)
+     * http://stackoverflow.com/questions/4354988/finding-subset-of-disjunctive-intervals-with-maximal-weights
+     * http://www.cs.princeton.edu/courses/archive/spr05/cos423/lectures/06dynamic-programming.pdf (check this one)
      *
      */
     public int findMaxCost(List<Interval> intervals){
