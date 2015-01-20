@@ -27,8 +27,7 @@ public class LowestCommonAncestor2 {
 
     public static int getMatchCount(TreeNode root, TreeNode p, TreeNode q){
         if(root == null) return 0;
-        int count = 0;
-        if(root == p || root == q) count++;
+        int count = (root == p || root == q) ? 1 : 0;
         return count + getMatchCount(root.left, p, q) + getMatchCount(root.right, p, q);
     }
 
