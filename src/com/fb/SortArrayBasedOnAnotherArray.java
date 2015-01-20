@@ -39,15 +39,16 @@ public class SortArrayBasedOnAnotherArray{
             }
         }
 
-        List<Integer> remaining = new ArrayList<Integer>(map.keySet());
-        Collections.sort(remaining);
-        for(int n : remaining){
-            A1[index++] = n;
+        List<Integer> keys = new ArrayList<Integer>(map.keySet());
+        Collections.sort(keys);
+        for(int key : keys){
+            int count = map.get(key);
+            for(int i = 0; i < count; i++) A1[index++] = key;
         }
     }
 
     public static void main(String[] args){
-        int A1[] = {2, 1, 2, 5, 7, 1, 9, 3, 6, 8, 8};
+        int A1[] = {2, 1, 2, 5, 7, 1, 9, 3, 7, 8, 8};
         int A2[] = {2, 1, 8, 3};
         //Expected: 2, 2, 1, 1, 8, 8, 3, 5, 6, 7, 9
         sortAccording(A1, A2);
