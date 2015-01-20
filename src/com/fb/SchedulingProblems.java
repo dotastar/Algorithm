@@ -32,6 +32,11 @@ public class SchedulingProblems {
      */
     public static int findMax(List<Interval> intervals){
         List<Integer> list = new ArrayList<Integer>();
+        for(Interval interval : intervals){
+            list.add(interval.start);
+            list.add(-interval.end);
+        }
+
         Comparator<Integer> comparator = new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
@@ -42,14 +47,7 @@ public class SchedulingProblems {
                 }
             }
         };
-
-        for(Interval interval : intervals){
-            list.add(interval.start);
-            list.add(-interval.end);
-        }
-        System.out.println(list);
         Collections.sort(list, comparator);
-        System.out.println(list);
 
         int max = 0;
         int counter = 0;
